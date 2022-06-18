@@ -21,14 +21,19 @@
 </head>
 
 <body class="hold-transition login-page" style="font-family: 'Mitr', sans-serif;">
-  <div class="login-box">
+  <div class="login-box"  style="width: 50%;">
     <div class="login-logo">
-     <b>บริการเครื่องมือวิจัย สวพ.</b>
+     <b>ระบบการลงทะเบียนเข้าร่วม่โครงการอบรมเชิงปฏิบัติการการเขียนบทความวิจัยเพื่อตีพิมพ์ลงในวารสารวิชาการระดับนานาชาติ : ด้านวิศวกรรมศาสตร์และเทคโนโลยี</b>
+
+     <hr>
+     <span>ระหว่างวันที่ 2-5 สิงหาคม 2565
+      ณ อำเภอปากช่อง จังหวัดนครราชสีมา
+      </span>
     </div>
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body">
-        <a href="{{route('calendar_index_page')}}" ><p class="login-box-msg">กลับหน้าหลัก</p></a>
+        <a href="{{route('home_index_page')}}" ><p class="login-box-msg">กลับหน้าหลัก</p></a>
 
         @if (session('alert'))
 

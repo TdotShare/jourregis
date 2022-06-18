@@ -91,9 +91,9 @@ class AuthenticationController extends Controller
         session(['rmutilogin' => false]);
 
         if(session('role') == 'admin'){
-            return redirect()->route("dashboard_index_page");
+            return redirect()->route("dashboard_ad_index_page");
         }else{
-            return redirect()->route("calendar_index_page");
+            return redirect()->route("home_index_page");
         }
     }
 

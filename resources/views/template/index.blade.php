@@ -24,7 +24,6 @@
   <link rel="stylesheet"
     href={{URL::asset("template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")}}>
 
-
   @yield('script_header')
 
 </head>
@@ -40,7 +39,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="{{route("calendar_index_page")}}" class="nav-link">Home</a>
+          <a href="{{route("home_index_page")}}" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
 

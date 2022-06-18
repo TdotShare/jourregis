@@ -3,11 +3,13 @@
 //  ["name" => "จองห้องประชุม", "menu" => null , "url" => route("reserveroom_index_page") , "icon" => "fas fa-door-closed" , "path" => "/reserveroom"] ,
 
 $menuUser = [
-    ["name" => "หน้าหลัก", "menu" => null , "url" => route("calendar_index_page") , "icon" => "fas fa-calendar" , "path" => "/calendar"] ,
+    ["name" => "หน้าหลัก", "menu" => null , "url" => route("home_index_page") , "icon" => "fas fa-home" , "path" => "/home"] ,
 ];
 
 $menuAdmin = [
-    ["name" => "แดชบอร์ด", "menu" => null , "url" => route("dashboard_index_page") , "icon" => "fas fa-th" , "path" => "/dashboard"] ,
+    ["name" => "แดชบอร์ด", "menu" => null , "url" => route("dashboard_ad_index_page") , "icon" => "fas fa-th" , "path" => "admin/dashboard"] ,
+    ["name" => "การอบรม", "menu" => null , "url" => route("topic_ad_index_page") , "icon" => "fas fa-weight" , "path" => "admin/topic"] ,
+    ["name" => "ผู้ใช้งาน", "menu" => null , "url" => route("account_ad_index_page") , "icon" => "fas fa-users" , "path" => "admin/account"] ,
 ];
 ?>
 
@@ -72,15 +74,6 @@ $menuAdmin = [
             @endif
 
             @endforeach
-
-            <li class="nav-item">
-                <a target="_bank" href={{route("manual_user")}} class="nav-link">
-                    <i class="nav-icon fas fa-book"></i>
-                    <p>
-                        คู่มือการใช้งานระบบ
-                    </p>
-                </a>
-            </li>
 
             @if (session('auth') == null)
 

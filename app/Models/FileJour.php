@@ -12,7 +12,7 @@ class FileJour extends Model
     //public $incrementing = false;
 
     protected $fillable = [
-        "file_id", "file_topic_id", "file_name", "file_path", "file_create_at", "file_update_at"
+        "file_id", "file_profile_id" , "file_topic_id", "file_name", "file_path", "file_create_at", "file_update_at"
     ];
 
     // protected $hidden = [

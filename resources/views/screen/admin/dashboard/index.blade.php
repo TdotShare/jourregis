@@ -4,7 +4,7 @@
 <?php 
 
 $breadcrumb = [ 
-    [ "name" => "หน้าหลัก" , "url" => route("dashboard_index_page") ],
+    [ "name" => "หน้าหลัก" , "url" => route("home_index_page") ],
     [ "name" => "แดชบอร์ด" , "url" => null ],
 ]
 
@@ -48,12 +48,6 @@ $breadcrumb = [
 
 
 @section('script_footer')
-
-
-
-
-
-</div>
 
 
 
