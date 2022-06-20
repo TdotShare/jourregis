@@ -12,7 +12,17 @@ class Profile extends Model
     //public $incrementing = false;
 
     protected $fillable = [
-        "profile_id", "profile_topic_id", "profile_position", "profile_affiliation", "profile_tel", "profile_email", "profile_create_at", "profile_update_at"
+        "profile_id",
+        "profile_user_uid",
+        "profile_topic_id",
+        "profile_position",
+        "profile_affiliation",
+        "profile_tel",
+        "profile_email",
+        "profile_steps",
+        "profile_status",
+        "profile_create_at",
+        "profile_update_at"
     ];
 
     // protected $hidden = [

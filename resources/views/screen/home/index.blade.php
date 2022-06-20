@@ -106,16 +106,16 @@ $breadcrumb = [
                     @foreach ($model as $index => $item )
 
                     @php
-                    $dateData = new DateTime($item->topic_enddate);
-                    $date = strtotime($item->topic_enddate);
-                    $remaining = $date - time();
-                    $days_remaining = floor($remaining / 86400);
+                    $d1 = new DateTime('now');
+                    $d2 = new DateTime($item->topic_enddate);
+                    $result = $d2->diff($d1);
                     @endphp
                     
                     <tr>
-                        <td>{{$item->topic_title}}</td>
-                        <td>{{$item->topic_enddate}} | <span style="color: red;"> เหลือเวลาอีก {{ $days_remaining }} วัน </span></td>
+                        <td><a href={{route('home_view_page' , ["id" => $item->topic_id])}}>{{$item->topic_title}}</a></td>
+                        <td>{{$item->topic_enddate}} | <span style="color: red;"> เหลือเวลาอีก {{ $result->d }} วัน {{$result->h}} ชั่วโมง {{$result->i}} นาที </span></td>
                     </tr>
+
                     @endforeach
                 </tbody>
             </table>

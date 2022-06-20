@@ -4,9 +4,9 @@ namespace App\Http\Middleware;
 
 use App\Providers\RouteServiceProvider;
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated
+
+class AdminRedirectlf
 {
     /**
      * Handle an incoming request.
@@ -23,6 +23,10 @@ class RedirectIfAuthenticated
         // }
 
         if(!session('auth')){
+            return redirect()->route('login_page');
+        }
+
+        if(session('role') != 'admin'){
             return redirect()->route('login_page');
         }
 

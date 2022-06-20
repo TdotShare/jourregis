@@ -26,12 +26,21 @@ Route::group(['prefix' =>  '/auth'], function () {
 
 Route::group(['prefix' => '/home', 'middleware' => [ ] ], function () {
     Route::get('/', "HomeController@actionIndex")->name('home_index_page');
+    Route::get('/{id}', "HomeController@actionView")->name('home_view_page');
+});
+
+Route::group(['prefix' => '/profile', 'middleware' => [ 'guest' ] ], function () {
+    Route::post('/update', "ProfileController@actionUpdate")->name('profile_update_data');
+    Route::post('/upload', "ProfileController@actionUpload")->name('profile_upload_data');
+    Route::get('/submission/{id}', "ProfileController@actionSubmission")->name('profile_submission_data');
+    Route::get('/backsteps/{id}', "ProfileController@actionBackSteps")->name('profile_backsteps_data');
+    Route::get('/bypass_file/{id}', "ProfileController@actionAttachment")->name('profile_bypassfile_data');
+    Route::get('/delete_file/{id}', "FileJourController@actionFileJourDelete")->name('profile_delete_filejour_data');
 });
 
 
 
-
-Route::group(['prefix' => '/admin', 'middleware' => [ ] ], function () {
+Route::group(['prefix' => '/admin', 'middleware' => [ 'guest' , 'admin' ] ], function () {
 
     Route::get('/', function () {
         return redirect()->route('dashboard_ad_index_page');
@@ -54,8 +63,14 @@ Route::group(['prefix' => '/admin', 'middleware' => [ ] ], function () {
         Route::post('/create', "TopicController@actionCreate")->name('topic_ad_create_data');
         Route::post('/update_data', "TopicController@actionUpdate")->name('topic_ad_update_data');
 
+    });
 
+    Route::group(['prefix' => '/excel'], function () {
+        Route::get('/participant/{id}', "TopicController@actionGenerateExcel")->name('excel_ad_participant_data');
+    });
 
+    Route::group(['prefix' => '/profile'], function () {
+        Route::get('/status/{id}', "ProfileController@actionStatus")->name('profile_ad_status_data');
     });
 
     Route::group(['prefix' => '/account'], function () {

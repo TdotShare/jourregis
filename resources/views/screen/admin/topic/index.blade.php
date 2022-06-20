@@ -46,7 +46,7 @@ $breadcrumb = [
 
 <div style="margin-bottom:1%;"></div>
 
-<div class="card shadow p-3">
+<div class="card shadow-sm p-3">
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%">
@@ -69,7 +69,13 @@ $breadcrumb = [
                         <td>{{$index + 1}}</td>
                         <td>{{$item->topic_title}}</td>
                         <td>{{$item->topic_enddate}}</td>
-                        <td>{{$item->topic_status}}</td>
+
+                        @if ($item->topic_status == 1)
+                        <td class="bg-success" ><i class="fas fa-check-circle"></i> เปิดการใช้งาน</td>          
+                        @else
+                        <td class="bg-danger"><i class="fas fa-times-circle"></i> ปิดการใช้งาน</td>           
+                        @endif
+                        
                         <td>{{$item->topic_update_by}}</td>
                         <td><a href={{route('topic_ad_status_data' , ['id' => $item->topic_id])}} ><button class="btn btn-block btn-primary"><i class="fas fa-redo"></i> เปลี่ยนสถานะ</button></a></td>
                         <td><a href={{route('topic_ad_participant_page' , ['id' => $item->topic_id])}}><button class="btn btn-block btn-primary"><i class="fas fa-users"></i> ผู้ลงทะเบียนเข้าอบรม</button></a></td>

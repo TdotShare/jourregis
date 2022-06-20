@@ -63,7 +63,7 @@
       <a href="#" class="brand-link">
         <img src="{{URL::asset("assets/logo/irdrmuti_cri.png")}}" alt="AdminLTE Logo"
           class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">บริการเครื่องมือวิจัย</span>
+        <span class="brand-text font-weight-light">Jourregis RMUTI</span>
       </a>
 
       <!-- Sidebar -->
@@ -96,7 +96,7 @@
 
     <footer class="main-footer">
       <div class="float-right d-none d-sm-block">
-        <b>Version</b> 1.0.0 - 01/2022
+        <b>Version</b> 1.0.0 - 06/2022
       </div>
       <strong>Copyright &copy; <a href="https://ird.rmuti.ac.th/main/"> สถาบันวิจัยและพัฒนา 2022  </a></strong>
     </footer>

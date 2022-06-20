@@ -43,6 +43,34 @@ $breadcrumb = [
 @endif
 
 
+<div class="row">
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ App\Models\Account::count() }} <sup style="font-size: 20px">คน</sup></h3>
+                <p>ผู้ที่มาละเบียนใช้งานระบบ</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ App\Models\Topic::count() }} <sup style="font-size: 20px">โครงการ</sup></h3>
+                <p>โครงการอบรมที่อยู่ในระบบ</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
 
 @endsection
 

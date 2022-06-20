@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ParticipantExport;
+use App\Models\FileJour;
+use App\Models\Profile;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TopicController extends Controller
 {
@@ -79,12 +83,36 @@ class TopicController extends Controller
         }
     }
 
+    public function actionGenerateExcel($id)
+    {
+        return Excel::download(new ParticipantExport($id) , 'ผู้สมัครเข้าร่วมอบรม' . date("d-m-Y")  .'.xlsx');
+    }
+
     public function actionParticipant($id)
     {
         $model = Topic::find($id);
 
         if($model){
-            return view("$this->page.participant", ['model' => $model]);
+
+            //$participant = Profile::where('profile_topic_id' , $id)->get();
+
+            $participant =  Profile::leftJoin('jourregis_user', 'jourregis_user.user_uid', '=', 'jourregis_profile.profile_user_uid')
+            ->where('profile_topic_id' , $id)
+            ->select(
+                'jourregis_user.user_uid',
+                'jourregis_user.user_prename',
+                'jourregis_user.user_firstname_th',
+                'jourregis_user.user_lastname_th',
+                'jourregis_user.user_campus',
+                'jourregis_profile.*'
+            )->get();
+
+
+            return view("$this->page.participant", 
+            [
+                'model' => $model,
+                'participant' => $participant
+            ]);
         }else{
             return $this->responseRedirectBack('ไม่พบข้อมูลที่ต้องการค้นหา !', 'warning');
         }
@@ -94,6 +122,13 @@ class TopicController extends Controller
     {
         $model = Topic::find($id);
         if($model){
+
+            if (file_exists("upload/$model->topic_id")) {
+                $this->actionDeleteFolderAll("upload/$model->topic_id");
+            }
+
+            FileJour::where('file_topic_id', $model->topic_id)->delete();
+            Profile::where('profile_topic_id', $model->topic_id)->delete();
 
             $model->delete();
 
@@ -117,6 +152,17 @@ class TopicController extends Controller
         }else{
             return $this->responseRedirectBack('ไม่พบข้อมูลที่ต้องการค้นหา !', 'warning');
         }
+    }
+
+    public function actionDeleteFolderAll($dir)
+    {
+        foreach (glob($dir . '/*') as $file) {
+            if (is_dir($file))
+                $this->actionDeleteFolderAll($file);
+            else
+                unlink($file);
+        }
+        rmdir($dir);
     }
 
 
