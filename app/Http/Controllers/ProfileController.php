@@ -124,18 +124,18 @@ class ProfileController extends Controller
         }
 
         $fileName =  $this->randomFileName() . '.' . $request->file('file_item')->getClientOriginalExtension();
-        $folder_main = $request->file_topic_id;
+        $folder_main =  $this->actionCreateFolder($request->file_topic_id, md5(session('username')));
 
-        $this->actionCreateFolder($folder_main, md5(session('username')));
+
 
         try {
-            if ($request->file('file_item')->move(public_path("upload/$folder_main/" . md5(session('username'))), $fileName)) {
+            if ($request->file('file_item')->move(public_path("$folder_main"), $fileName)) {
 
                 $data = [
                     'file_profile_uid' => session('username'),
                     'file_topic_id' => $request->file_topic_id,
                     'file_name' => $request->file_name,
-                    'file_path' => $request->file_topic_id . "/" .  md5(session('username'))  . "/" . $fileName,
+                    'file_path' => $folder_main . "/" . $fileName,
                 ];
 
                 FileJour::create($data);
@@ -163,10 +163,14 @@ class ProfileController extends Controller
     public function actionCreateFolder($topic_id, $username)
     {
 
-        $destinationPath = public_path("upload/$topic_id/$username");
+        $destinationPath = public_path("upload/file/$topic_id/$username");
         if (!file_exists($destinationPath)) {
             mkdir($destinationPath, 0777, true);
         }
+
+        $getName = "upload/file/$topic_id/$username";
+
+        return $getName;
     }
 
     protected function responseRedirectBack($message, $status = "success", $alert = true)

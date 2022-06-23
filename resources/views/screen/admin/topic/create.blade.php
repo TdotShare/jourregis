@@ -48,9 +48,13 @@ $breadcrumb = [
 
 
 
-        <form action={{route('topic_ad_create_data')}} method="post" >
+        <form action={{route('topic_ad_create_data')}} method="post" enctype="multipart/form-data" >
 
             {{ csrf_field() }}
+
+            <h4>ข้อมูลการเปิดอบรม</h4>
+
+            <hr />
 
             <input type="hidden" name="topic_enddate" class="form-control float-right" id="topic_enddate" value="">
 
@@ -78,8 +82,37 @@ $breadcrumb = [
 
             <div class="form-row">
                 <div class="form-group col-md">
+                    <label>ด้านการอบรม</label>
+                    <select class="custom-select" name="topic_type" required>
+                        <option value="" selected>เลือกด้านอบรม</option>
+                        <option value="1">ด้านมนุษยศาสตร์และสังคมศาสตร์</option>
+                        <option value="2">ด้านวิศวกรรมศาสตร์และเทคโนโลยี</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md">
                     <label>รายละเอียด (note)</label>
                     <input type="text" class="form-control" name="topic_note" required>
+                </div>
+            </div>
+
+            <h4>ข้อมูลการวิทยากร</h4>
+
+            <hr />
+
+            <div class="form-row">
+                <div class="form-group col-md">
+                    <label>ไฟล์ CV วิทยาการ </label>
+                    <input type="file" class="form-control" name="topic_cv_lecturer" accept="application/pdf">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md">
+                    <label>ไฟล์รูปประจำตัววิทยากร</label>
+                    <input type="file" class="form-control" name="topic_image_lecturer" accept="image/jpeg,image/jpg,image/png">
                 </div>
             </div>
 

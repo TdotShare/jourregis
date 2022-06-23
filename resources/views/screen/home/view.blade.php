@@ -43,6 +43,7 @@ $breadcrumb = [
 
 @endif
 
+
 <div class="card shadow-sm p-3">
     <div class="card-body">
 
@@ -111,7 +112,7 @@ $breadcrumb = [
                         'รองศาสตราจารย์ ดร.',
                         'ศาสตราจารย์ ดร.',
                         'อาจารย์',
-                        'ไม่ระบุ'
+                        'ไม่มี'
                         ];
                         @endphp
 
@@ -302,25 +303,25 @@ $breadcrumb = [
 
         </div>
     </div>
+</div>
+
+@endsection
 
 
-    @endsection
+@section('script_footer')
 
+<script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
 
-    @section('script_footer')
+<script>
+    $(document).ready(function () {
 
-    <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+    var page =  "{!! $profile ? $profile->profile_steps : 1 !!}"; 
+    //console.log(page)   
 
-    <script>
-        $(document).ready(function () {
+    var stepper = new Stepper(document.querySelector('.bs-stepper'))
+    stepper.to(page)
 
-        var page =  "{!! $profile ? $profile->profile_steps : 1 !!}"; 
-        //console.log(page)   
+})
+</script>
 
-        var stepper = new Stepper(document.querySelector('.bs-stepper'))
-        stepper.to(page)
-
-    })
-    </script>
-
-    @endsection
+@endsection

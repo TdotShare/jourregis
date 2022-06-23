@@ -54,6 +54,7 @@ $breadcrumb = [
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">หัวข้อการอบรม</th>
+                        <th scope="col">ด้านการอบรม</th>
                         <th scope="col">วันที่ปิดรับสมัคร</th>
                         <th scope="col">สถานะ</th>
                         <th scope="col">แก้ไขล่าสุด</th>
@@ -68,8 +69,9 @@ $breadcrumb = [
                     <tr>
                         <td>{{$index + 1}}</td>
                         <td>{{$item->topic_title}}</td>
+                        <td>{{$item->topic_type == 1 ? 'ด้านมนุษยศาสตร์และสังคมศาสตร์' : 'ด้านวิศวกรรมศาสตร์และเทคโนโลยี' }}</td>
                         <td>{{$item->topic_enddate}}</td>
-
+                        
                         @if ($item->topic_status == 1)
                         <td class="bg-success" ><i class="fas fa-check-circle"></i> เปิดการใช้งาน</td>          
                         @else

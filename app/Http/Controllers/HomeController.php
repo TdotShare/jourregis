@@ -35,6 +35,28 @@ class HomeController extends Controller
         return view("$this->page.index", ['model' => $model]);
     }
 
+    public function actionDetail($id)
+    {
+        if(!session('auth')){
+            return redirect()->route("login_page");
+        }
+
+        $model = Topic::find($id);
+
+        if (!$model) {
+            return $this->responseRedirectBack('ไม่พบข้อมูลที่ต้องการค้นหา !', 'warning');
+        }
+
+        if ($model->topic_status != 1) {
+            return $this->responseRedirectBack('หัวข้อการอมรบที่เลือกปิดรับสมัครแล้ว !', 'warning');
+        }
+
+        return view("$this->page.detail", [
+            'model' => $model,
+        ]);
+
+    }
+
     public function actionView($id)
     {
 

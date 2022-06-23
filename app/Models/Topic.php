@@ -12,7 +12,19 @@ class Topic extends Model
     //public $incrementing = false;
 
     protected $fillable = [
-        "topic_id", "topic_title", "topic_note", "topic_enddate", "topic_status", "topic_create_by", "topic_update_by", "topic_create_at", "topic_update_at"
+        "topic_id",
+        "topic_title",
+        "topic_note",
+        "topic_enddate",
+        "topic_status",
+        "topic_type",
+        "topic_folder",
+        "topic_image_lecturer",
+        "topic_cv_lecturer",
+        "topic_create_by",
+        "topic_update_by",
+        "topic_create_at",
+        "topic_update_at"
     ];
 
     // protected $hidden = [

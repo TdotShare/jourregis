@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>InstIRD RMUTI</title>
+  <title>JourregisIRD RMUTI</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="{{URL::asset("assets/logo/irdrmuti_thmb.gif")}}" type="image/gif" sizes="16x16">
@@ -23,12 +23,10 @@
 <body class="hold-transition login-page" style="font-family: 'Mitr', sans-serif;">
   <div class="login-box"  style="width: 50%;">
     <div class="login-logo">
-     <b>ระบบการลงทะเบียนเข้าร่วม่โครงการอบรมเชิงปฏิบัติการการเขียนบทความวิจัยเพื่อตีพิมพ์ลงในวารสารวิชาการระดับนานาชาติ : ด้านวิศวกรรมศาสตร์และเทคโนโลยี</b>
+     <b>ระบบการลงทะเบียนเข้าร่วมโครงการอบรมเชิงปฏิบัติการการเขียนบทความวิจัยเพื่อตีพิมพ์ลงในวารสารวิชาการระดับนานาชาติ</b>
 
      <hr>
-     <span>ระหว่างวันที่ 2-5 สิงหาคม 2565
-      ณ อำเภอปากช่อง จังหวัดนครราชสีมา
-      </span>
+
     </div>
     <!-- /.login-logo -->
     <div class="card">

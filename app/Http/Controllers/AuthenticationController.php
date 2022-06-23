@@ -35,7 +35,7 @@ class AuthenticationController extends Controller
 
             try {
 
-                $model = Account::where("uid", '=', $data->uid)->first();
+                $model = Account::where("user_uid", '=', $data->uid)->first();
 
                 if (!$model) {
 
@@ -67,9 +67,9 @@ class AuthenticationController extends Controller
                 session(['rmutilogin' => true]);
 
 
-                return redirect()->route($adminData->CheckedAuthenAdmin($data->uid) ? "dashboard_index_page" : "calendar_index_page");
+                return redirect()->route($adminData->CheckedAuthenAdmin($data->uid) ? "dashboard_ad_index_page" : "home_index_page");
             } catch (\PDOException $th) {
-                return $this->responseRedirectRoute("login_page", $th->getMessage(), "danger");
+                return $this->responseRedirectRoute("login_page", "error", "danger");
             }
         } else {
 
@@ -78,24 +78,24 @@ class AuthenticationController extends Controller
         }
     }
 
-    public function actionLoginTest()
-    {
-        session(['auth' => true]);
-        session(['username' => "jirayu.co"]);
-        session(['fullname' => "jirayu chiaowet"]);
-        session(['firstname' => "จิรายุ"]);
-        session(['lastname' => "เชี่ยวเวช"]);
-        session(['card_id' => "1309901343xxx"]);
-        session(['email' => "jirayu.co@rmuti.ac.th"]);
-        session(['role' => "admin"]);
-        session(['rmutilogin' => false]);
+    // public function actionLoginTest()
+    // {
+    //     session(['auth' => true]);
+    //     session(['username' => "jirayu.co"]);
+    //     session(['fullname' => "jirayu chiaowet"]);
+    //     session(['firstname' => "จิรายุ"]);
+    //     session(['lastname' => "เชี่ยวเวช"]);
+    //     session(['card_id' => "1309901343xxx"]);
+    //     session(['email' => "jirayu.co@rmuti.ac.th"]);
+    //     session(['role' => "admin"]);
+    //     session(['rmutilogin' => false]);
 
-        if(session('role') == 'admin'){
-            return redirect()->route("dashboard_ad_index_page");
-        }else{
-            return redirect()->route("home_index_page");
-        }
-    }
+    //     if(session('role') == 'admin'){
+    //         return redirect()->route("dashboard_ad_index_page");
+    //     }else{
+    //         return redirect()->route("home_index_page");
+    //     }
+    // }
 
     public function actionLogout()
     {

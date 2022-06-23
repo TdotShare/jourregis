@@ -20,13 +20,17 @@ Route::get('/', function () {
 
 Route::group(['prefix' =>  '/auth'], function () {
     Route::get('/', 'AuthenticationController@actionHomeLogin')->name("login_page");
-    Route::get('/login', "AuthenticationController@actionLoginTest")->name('login_rmuti_page');
+    //Route::get('/login', "AuthenticationController@actionLoginTest")->name('login_rmuti_page');
+
+    Route::get('/rmuti', 'AuthenticationController@actionHomeRMUTILogin')->name("login_rmuti_page");
+    Route::get('/login_rmuti', 'AuthenticationController@actionLoginRmuti')->name("login_rmuti_data");
     Route::get('/logout', "AuthenticationController@actionLogout")->name('logout_data');
 });
 
 Route::group(['prefix' => '/home', 'middleware' => [ ] ], function () {
     Route::get('/', "HomeController@actionIndex")->name('home_index_page');
-    Route::get('/{id}', "HomeController@actionView")->name('home_view_page');
+    Route::get('/detail/{id}', "HomeController@actionDetail")->name('home_detail_page');
+    Route::get('/resgis/{id}', "HomeController@actionView")->name('home_view_page');
 });
 
 Route::group(['prefix' => '/profile', 'middleware' => [ 'guest' ] ], function () {

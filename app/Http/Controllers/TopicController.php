@@ -40,6 +40,29 @@ class TopicController extends Controller
         $data['topic_update_by'] = session('username');
         $data['topic_status'] = 0;
 
+        $folder_name = $this->randomFileName();
+        $folder_main =  $this->actionCreateFolder($folder_name);
+
+        if($request->file('topic_cv_lecturer')){
+            $fileName =  $this->randomFileName() . '.' . $request->file('topic_cv_lecturer')->getClientOriginalExtension();
+            if ($request->file('topic_cv_lecturer')->move(public_path("$folder_main") , $fileName)) {
+                $data['topic_cv_lecturer'] = "$folder_main/$fileName";
+            } else {
+                return $this->responseRedirectBack('อัปโหลดไฟล์ไม่สำเร็จ กรุณาลองใหม่อีกครั้ง !', 'warning');
+            }
+        }
+
+        if($request->file('topic_image_lecturer')){  
+            $fileName =  $this->randomFileName() . '.' . $request->file('topic_image_lecturer')->getClientOriginalExtension();
+            if ($request->file('topic_image_lecturer')->move(public_path("$folder_main"), $fileName)) {
+                $data['topic_image_lecturer'] = "$folder_main/$fileName";
+            } else {
+                return $this->responseRedirectBack('อัปโหลดไฟล์ไม่สำเร็จ กรุณาลองใหม่อีกครั้ง !', 'warning');
+            }
+        }
+        
+        $data['topic_folder'] = $folder_name;
+
         try {
             Topic::create($data);
             return $this->responseRedirectRoute('topic_ad_index_page' , 'สร้างข้อมูลเรียบร้อย !');
@@ -70,6 +93,45 @@ class TopicController extends Controller
 
                 $data = $request->all();
                 $data['topic_update_by'] = session('username');
+
+
+                $folder_name = $model->topic_folder;
+                $folder_main =  "upload/cv/$folder_name";
+
+
+                if($request->file('topic_cv_lecturer')){
+
+                    if (is_file(public_path($model->topic_cv_lecturer))) {
+                        unlink(public_path($model->topic_cv_lecturer));
+                    }
+                    
+
+                    $fileName =  $this->randomFileName() . '.' . $request->file('topic_cv_lecturer')->getClientOriginalExtension();
+                    if ($request->file('topic_cv_lecturer')->move(public_path("$folder_main") , $fileName)) {
+                        $data['topic_cv_lecturer'] = "$folder_main/$fileName";
+                    } else {
+                        return $this->responseRedirectBack('อัปโหลดไฟล์ไม่สำเร็จ กรุณาลองใหม่อีกครั้ง !', 'warning');
+                    }
+                }else{
+                    $data['topic_cv_lecturer'] = $model->topic_cv_lecturer;
+                }
+        
+                if($request->file('topic_image_lecturer')){  
+
+                    if (is_file(public_path($model->topic_image_lecturer))) {
+                        unlink(public_path($model->topic_image_lecturer));
+                    }
+
+
+                    $fileName =  $this->randomFileName() . '.' . $request->file('topic_image_lecturer')->getClientOriginalExtension();
+                    if ($request->file('topic_image_lecturer')->move(public_path("$folder_main"), $fileName)) {
+                        $data['topic_image_lecturer'] = "$folder_main/$fileName";
+                    } else {
+                        return $this->responseRedirectBack('อัปโหลดไฟล์ไม่สำเร็จ กรุณาลองใหม่อีกครั้ง !', 'warning');
+                    }
+                }else{
+                    $data['topic_image_lecturer'] = $model->topic_image_lecturer;
+                }
 
                 $model->update($data);
 
@@ -123,8 +185,12 @@ class TopicController extends Controller
         $model = Topic::find($id);
         if($model){
 
-            if (file_exists("upload/$model->topic_id")) {
-                $this->actionDeleteFolderAll("upload/$model->topic_id");
+            if (file_exists("upload/file/$model->topic_id")) {
+                $this->actionDeleteFolderAll("upload/file/$model->topic_id");
+            }
+
+            if (file_exists("upload/cv/$model->topic_folder")) {
+                $this->actionDeleteFolderAll("upload/cv/$model->topic_folder");
             }
 
             FileJour::where('file_topic_id', $model->topic_id)->delete();
@@ -154,15 +220,50 @@ class TopicController extends Controller
         }
     }
 
-    public function actionDeleteFolderAll($dir)
+    public function actionCreateFolder($folder)
     {
-        foreach (glob($dir . '/*') as $file) {
-            if (is_dir($file))
-                $this->actionDeleteFolderAll($file);
-            else
-                unlink($file);
+
+        $destinationPath = public_path("upload/cv/$folder");
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0777, true);
         }
-        rmdir($dir);
+
+        $getName = "upload/cv/$folder";
+
+        return $getName;
+    }
+
+    function randomFileName($length = 8)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+
+    public function actionDeleteFolderAll($folder = '')
+    {
+        if (is_dir($folder) && $folder != '') {
+            //Get a list of all of the file names in the folder.
+            $files = glob($folder . '/*');
+
+            //Loop through the file list.
+            foreach ($files as $file) {
+                //Make sure that this is a file and not a directory.
+                if (is_file($file)) {
+                    //Use the unlink function to delete the file.
+                    unlink($file);
+                }
+            }
+        }
+
+        if (is_dir($folder)) {
+            rmdir($folder);
+        }
     }
 
 

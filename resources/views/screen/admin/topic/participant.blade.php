@@ -82,7 +82,7 @@ $breadcrumb = [
                     <td>
                         <ul>
                         @foreach ($dataFiles as $el)
-                            <li><a target="_blank" href={{asset("upload/$el->file_path")}} >{{$el->file_name}}</a></li>
+                            <li><a target="_blank" href={{asset("$el->file_path")}} >{{$el->file_name}}</a></li>
                         @endforeach
                         </ul>
                     </td>
